@@ -7,10 +7,11 @@ export default function Home() {
   return (
     <div className="space-y-16">
       <section>
-        <h1 className="text-3xl font-bold tracking-tight mb-3">Your Name</h1>
+        <h1 className="text-3xl font-bold tracking-tight mb-3">Issac Pimentel</h1>
         <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
-          A short, compelling bio. Tell visitors who you are and what you care about —
-          photographer, writer, builder, traveler.
+          Entrepreneur based in Lemoore, CA. Building things on the side — web projects,
+          freelance work, whatever's worth pursuing. Into photography, cars, fashion, Linux,
+          and leather journaling.
         </p>
         <div className="mt-6 flex gap-4">
           <Link

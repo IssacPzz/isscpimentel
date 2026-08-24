@@ -18,7 +18,7 @@ export function Nav() {
     <header className="border-b border-neutral-200 dark:border-neutral-800">
       <nav className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-sm font-semibold tracking-tight">
-          Your Name
+          Issac Pimentel
         </Link>
         <ul className="flex gap-6">
           {links.slice(1).map(({ href, label }) => (

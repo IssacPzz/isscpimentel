@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Your Name",
-    template: "%s | Your Name",
+    default: "Issac Pimentel",
+    template: "%s | Issac Pimentel",
   },
-  description: "Personal website — writing, photography, and more.",
+  description: "Entrepreneur based in Lemoore, CA. Writing, photography, and things I'm building.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="max-w-3xl mx-auto w-full px-4 py-12 flex-1">{children}</main>
         <footer className="max-w-3xl mx-auto w-full px-4 py-8 border-t border-neutral-200 dark:border-neutral-800">
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            © {new Date().getFullYear()} Your Name
+            © {new Date().getFullYear()} Issac Pimentel
           </p>
         </footer>
       </body>
