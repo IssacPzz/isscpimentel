@@ -1,25 +1,198 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-canvas: #faf9f7;
+  --color-mist-1: #e7e9ea;
+  --color-mist-2: #f3f1ec;
+  --color-mist-3: #dce0de;
+  --color-ink: #131315;
+  --color-ink-soft: #1b1b1e;
+  --color-body: #1a1a1a;
+  --color-muted: #444444;
+  --color-inverse: #f7f6f3;
+  --color-hairline: rgba(19, 19, 21, 0.1);
+  --color-hairline-inverse: rgba(247, 246, 243, 0.14);
+  --color-accent: #33c17a;
+  --color-tag-bg: #efeee9;
+  --color-white-pill: #ffffff;
+
+  --shadow-pill: 0 1px 2px rgba(19, 19, 21, 0.06);
+  --shadow-card: 0 24px 48px -28px rgba(19, 19, 21, 0.35), 0 2px 6px rgba(19, 19, 21, 0.06);
+  --shadow-hover: 0 16px 32px -16px rgba(19, 19, 21, 0.28);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 450ms;
+  --dur-slow: 600ms;
+
+  --space-section-y: clamp(4rem, 9vw, 7.5rem);
+  --space-section-y-sm: clamp(2.5rem, 6vw, 4rem);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--color-canvas);
+  --color-mist-1: var(--color-mist-1);
+  --color-mist-2: var(--color-mist-2);
+  --color-mist-3: var(--color-mist-3);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-body: var(--color-body);
+  --color-muted: var(--color-muted);
+  --color-inverse: var(--color-inverse);
+  --color-hairline: var(--color-hairline);
+  --color-hairline-inverse: var(--color-hairline-inverse);
+  --color-accent: var(--color-accent);
+  --color-tag-bg: var(--color-tag-bg);
+  --color-white-pill: var(--color-white-pill);
+
+  --font-display: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-header: clamp(2.25rem, 6vw, 3.75rem);
+  --text-ghost: clamp(4.5rem, 16vw, 13rem);
+  --text-hero: clamp(3rem, 12.5vw, 10.5rem);
+
+  --radius-pill: 999px;
+  --radius-card: 20px;
+  --radius-card-sm: 14px;
+
+  --shadow-pill: var(--shadow-pill);
+  --shadow-card: var(--shadow-card);
+  --shadow-hover: var(--shadow-hover);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-inverse);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Outline/solid type system — the page's signature device. Reused at full
+   scale in the hero and at low opacity behind every /SECTION header. */
+.stroke-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-ink);
+  paint-order: stroke fill;
+}
+
+.stroke-text-thick {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-ink);
+  paint-order: stroke fill;
+}
+
+.ghost-word {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-ink);
+  opacity: 0.06;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.ghost-word--inverse {
+  -webkit-text-stroke-color: var(--color-inverse);
+  opacity: 0.1;
+}
+
+/* Scroll-in fade-up, staggered via inline --delay custom property */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+    transition-delay: var(--delay, 0ms);
+  }
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Accordion smooth-height trick */
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-slow) var(--ease-out);
+}
+
+.accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-panel > div {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-panel {
+    transition: none;
+  }
+}
+
+/* Lift on hover — buttons and cards */
+@media (prefers-reduced-motion: no-preference) {
+  .lift {
+    transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.mist-bg {
+  background:
+    radial-gradient(120% 90% at 15% 10%, var(--color-mist-2) 0%, transparent 60%),
+    radial-gradient(100% 80% at 85% 20%, var(--color-mist-3) 0%, transparent 55%),
+    radial-gradient(140% 100% at 50% 100%, var(--color-mist-1) 0%, transparent 65%),
+    var(--color-mist-1);
 }

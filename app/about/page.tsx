@@ -15,12 +15,14 @@ export default function AboutPage() {
   const components = useMDXComponents({});
 
   return (
-    <article>
-      <MDXRemote
-        source={content}
-        components={components}
-        options={{ mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] } }}
-      />
-    </article>
+    <div className="mx-auto w-full max-w-3xl px-4 py-12">
+      <article>
+        <MDXRemote
+          source={content}
+          components={components}
+          options={{ mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] } }}
+        />
+      </article>
+    </div>
   );
 }

@@ -38,19 +38,20 @@ export default async function WritingPostPage({ params }: Props) {
   const components = useMDXComponents({});
 
   return (
+    <div className="mx-auto w-full max-w-3xl px-4 py-12">
     <article>
       <Link
         href="/writing"
-        className="text-sm text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 mb-8 inline-block"
+        className="text-sm text-muted hover:text-ink mb-8 inline-block"
       >
         ← All posts
       </Link>
 
       <header className="mb-8">
-        <time className="text-sm text-neutral-400 dark:text-neutral-500">{post.date}</time>
-        <h1 className="text-3xl font-bold tracking-tight mt-2">{post.title}</h1>
+        <time className="text-sm text-muted">{post.date}</time>
+        <h1 className="text-3xl font-bold tracking-tight mt-2 text-ink">{post.title}</h1>
         {post.excerpt && (
-          <p className="text-neutral-500 dark:text-neutral-400 mt-2">{post.excerpt}</p>
+          <p className="text-body mt-2">{post.excerpt}</p>
         )}
       </header>
 
@@ -60,5 +61,6 @@ export default async function WritingPostPage({ params }: Props) {
         options={{ mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] } }}
       />
     </article>
+    </div>
   );
 }

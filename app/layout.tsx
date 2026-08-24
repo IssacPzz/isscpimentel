@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import { Nav } from "@/components/nav";
+import { getAllPosts } from "@/lib/mdx";
+import { projects } from "@/lib/projects";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
   subsets: ["latin"],
+  weight: ["600", "700", "800", "900"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -18,20 +21,27 @@ export const metadata: Metadata = {
     default: "Issac Pimentel",
     template: "%s | Issac Pimentel",
   },
-  description: "Entrepreneur based in Lemoore, CA. Writing, photography, and things I'm building.",
+  description: "Freelance web developer based in Lemoore, CA. Writing, photography, and things I'm building.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const navCounts = {
+    work: projects.length,
+    interests: 4,
+    photography: 6,
+    writing: getAllPosts().length,
+  };
+
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${interTight.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Nav />
-        <main className="max-w-3xl mx-auto w-full px-4 py-12 flex-1">{children}</main>
-        <footer className="max-w-3xl mx-auto w-full px-4 py-8 border-t border-neutral-200 dark:border-neutral-800">
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+      <body className="flex min-h-full flex-col bg-canvas">
+        <Nav counts={navCounts} />
+        <main className="flex-1">{children}</main>
+        <footer className="border-t border-hairline px-4 py-6 sm:px-6">
+          <p className="text-center text-xs text-muted">
             © {new Date().getFullYear()} Issac Pimentel
           </p>
         </footer>
