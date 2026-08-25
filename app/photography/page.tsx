@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { getPhotos } from "@/lib/photos";
 
 export const metadata: Metadata = { title: "Photography" };
 
-// Replace these with your actual photos — either local files in /public/photos/
-// or remote URLs (add the hostname to next.config.ts > images.remotePatterns).
-const photos: { src: string; alt: string; width: number; height: number }[] = [
-  // Example:
-  // { src: "/photos/sample-1.jpg", alt: "Description of photo", width: 1200, height: 800 },
-];
-
 export default function PhotographyPage() {
+  const photos = getPhotos();
+
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-12">
       <h1 className="text-3xl font-bold tracking-tight mb-2 text-ink">Photography</h1>
@@ -25,11 +21,7 @@ export default function PhotographyPage() {
             <code className="bg-neutral-100 dark:bg-neutral-800 px-1 py-0.5 rounded text-xs">
               public/photos/
             </code>{" "}
-            and update the{" "}
-            <code className="bg-neutral-100 dark:bg-neutral-800 px-1 py-0.5 rounded text-xs">
-              photos
-            </code>{" "}
-            array in this file.
+            to see them here.
           </p>
         </div>
       ) : (

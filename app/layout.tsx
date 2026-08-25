@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Inter_Tight } from "next/font/google";
 import { Nav } from "@/components/nav";
 import { getAllPosts } from "@/lib/mdx";
+import { getPhotos } from "@/lib/photos";
 import { projects } from "@/lib/projects";
 import "./globals.css";
 
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   const navCounts = {
     work: projects.length,
     interests: 4,
-    photography: 6,
+    photography: getPhotos().length,
     writing: getAllPosts().length,
   };
 
