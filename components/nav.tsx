@@ -1,26 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PillButton } from "./pill-button";
+import { MenuIcon, CloseIcon } from "./icons";
 
-interface NavCounts {
-  work: number;
-  interests: number;
-  photography: number;
-  writing: number;
-}
+const links = [
+  { href: "/#work", label: "Work" },
+  { href: "/#interests", label: "Interests" },
+  { href: "/photography", label: "Photography" },
+  { href: "/writing", label: "Writing" },
+  { href: "/about", label: "About" },
+];
 
-export function Nav({ counts }: { counts: NavCounts }) {
+export function Nav() {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
-  const links = [
-    { href: "/#work", label: "Work", count: counts.work },
-    { href: "/#interests", label: "Interests", count: counts.interests },
-    { href: "/photography", label: "Photography", count: counts.photography },
-    { href: "/writing", label: "Writing", count: counts.writing },
-    { href: "/about", label: "About", count: null },
-  ];
+  const isActive = (href: string) =>
+    href.startsWith("/#") ? false : pathname === href || pathname.startsWith(href + "/");
 
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-md">
@@ -37,32 +36,56 @@ export function Nav({ counts }: { counts: NavCounts }) {
           <span className="sm:hidden">Available</span>
         </Link>
 
-        <ul className="hidden items-center gap-6 lg:flex">
-          {links.map(({ href, label, count }) => {
-            const active =
-              href.startsWith("/#") ? false : pathname === href || pathname.startsWith(href + "/");
-            return (
-              <li key={href}>
+        <ul className="hidden items-center gap-6 md:flex">
+          {links.map(({ href, label }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className={`font-body text-sm transition-colors ${
+                  isActive(href) ? "font-medium text-ink" : "text-body hover:text-ink"
+                }`}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill border border-hairline bg-white-pill text-ink shadow-[var(--shadow-pill)] md:hidden"
+          >
+            {open ? <CloseIcon className="h-4 w-4" /> : <MenuIcon className="h-4 w-4" />}
+          </button>
+          <PillButton href="/contact" size="sm">
+            Let&rsquo;s Talk
+          </PillButton>
+        </div>
+      </nav>
+
+      {open && (
+        <div className="border-t border-hairline bg-canvas md:hidden">
+          <ul className="mx-auto flex w-full max-w-6xl flex-col px-4 py-2 sm:px-6">
+            {links.map(({ href, label }) => (
+              <li key={href} className="border-b border-hairline last:border-b-0">
                 <Link
                   href={href}
-                  className={`font-body text-sm transition-colors ${
-                    active ? "font-medium text-ink" : "text-body hover:text-ink"
+                  onClick={() => setOpen(false)}
+                  className={`block py-3 font-body text-base ${
+                    isActive(href) ? "font-medium text-ink" : "text-body"
                   }`}
                 >
                   {label}
-                  {count !== null && (
-                    <sup className="ml-0.5 text-2xs font-medium text-muted">[{count}]</sup>
-                  )}
                 </Link>
               </li>
-            );
-          })}
-        </ul>
-
-        <PillButton href="/contact" size="sm">
-          Let&rsquo;s Talk
-        </PillButton>
-      </nav>
+            ))}
+          </ul>
+        </div>
+      )}
     </header>
   );
 }
