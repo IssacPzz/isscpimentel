@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section className="relative px-4 pt-10 pb-16 sm:px-6 sm:pt-14 sm:pb-24 lg:pr-24">
       <div className="mx-auto max-w-6xl">
-        <div className="relative flex min-h-[clamp(240px,42vw,520px)] items-center justify-center">
+        <div className="relative isolate flex min-h-[clamp(240px,42vw,520px)] items-center justify-center">
           <h1
             className="relative z-0 flex w-full flex-col items-center justify-center gap-1 text-center font-display font-black uppercase leading-[0.85] tracking-[-0.03em] text-ink sm:flex-row sm:justify-between sm:gap-0 sm:text-left"
             style={{ fontSize: "var(--text-hero)" }}
@@ -15,8 +15,8 @@ export function Hero() {
             <span>PIMENTEL</span>
           </h1>
 
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <HeroPortrait />
+          <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+            <HeroPortrait src="/portrait.jpg" />
           </div>
         </div>
 
