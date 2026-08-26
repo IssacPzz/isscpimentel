@@ -21,7 +21,7 @@ export function WorkSection() {
   const visible = projects.filter((p) => active === "all" || p.category === active);
 
   return (
-    <section id="work" className="scroll-mt-24 bg-canvas px-4 py-[var(--space-section-y)] sm:px-6">
+    <section id="selected-work" className="scroll-mt-24 bg-canvas px-4 py-[var(--space-section-y)] sm:px-6">
       <div className="mx-auto max-w-6xl">
         <Reveal>
           <SectionHeader label="Selected Work" ghost="Work" />

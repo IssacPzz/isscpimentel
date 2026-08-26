@@ -6,7 +6,7 @@ import "./globals.css";
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
   subsets: ["latin"],
-  weight: ["600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 const inter = Inter({

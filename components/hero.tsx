@@ -11,7 +11,7 @@ export function Hero() {
             className="relative z-0 flex w-full flex-col items-center justify-center gap-1 text-center font-display font-black uppercase leading-[0.85] tracking-[-0.03em] text-ink sm:flex-row sm:justify-between sm:gap-0 sm:text-left"
             style={{ fontSize: "var(--text-hero)" }}
           >
-            <span className="stroke-text-thick">ISSAC</span>
+            <span className="stroke-text-thick stroke-text-thick--on-solid">ISSAC</span>
             <span>PIMENTEL</span>
           </h1>
 
@@ -29,7 +29,7 @@ export function Hero() {
               I build fast, focused sites for people who need to launch — then spend
               the rest of my time on whatever&rsquo;s worth building next.
             </p>
-            <PillButton href="#work" className="mt-6">
+            <PillButton href="#selected-work" className="mt-6">
               View Selected Work
             </PillButton>
           </div>

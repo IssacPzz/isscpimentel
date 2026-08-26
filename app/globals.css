@@ -111,6 +111,27 @@ body {
   -webkit-text-stroke: 2px var(--color-ink);
 }
 
+/* paint-order: stroke fill draws the stroke first, then an opaque fill on
+   top — the fill covers the inner half of the stroke (which otherwise
+   bleeds into thin features like the A crossbar / R leg), leaving a clean
+   single outline. The fill color MUST match the exact background behind
+   the text, so this only works where that background is a flat color —
+   apply per-section, not as part of the shared base class above. */
+.stroke-text-thick--on-solid {
+  color: var(--color-canvas);
+  paint-order: stroke fill;
+}
+
+/* Best-flat-match for the mist-bg gradient behind "SOMETHING REAL" — sampled
+   from the actual rendered pixels under the text (ranged ~#ececea at the
+   left edge to ~#e2e4e3 at the right, averaging to this value). Not a
+   pixel-perfect match everywhere since the true background is a gradient,
+   but the shift is subtle enough that the seam is not noticeable. */
+.stroke-text-thick--on-mist {
+  color: #e8e9e8;
+  paint-order: stroke fill;
+}
+
 .ghost-word {
   position: absolute;
   font-family: var(--font-display);

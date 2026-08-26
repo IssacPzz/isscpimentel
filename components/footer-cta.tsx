@@ -20,7 +20,7 @@ export function FooterCta() {
           <h2 className="mt-6 font-display font-black uppercase leading-[0.9] tracking-[-0.03em] text-ink text-[clamp(2.25rem,8vw,5.5rem)]">
             Let&rsquo;s build
             <br />
-            <span className="stroke-text-thick">something real</span>
+            <span className="stroke-text-thick stroke-text-thick--on-mist">something real</span>
           </h2>
         </Reveal>
 

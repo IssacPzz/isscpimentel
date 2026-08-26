@@ -7,7 +7,7 @@ import { PillButton } from "./pill-button";
 import { MenuIcon, CloseIcon } from "./icons";
 
 const links = [
-  { href: "/#work", label: "Work" },
+  { href: "/#selected-work", label: "Work" },
   { href: "/#interests", label: "Interests" },
   { href: "/photography", label: "Photography" },
   { href: "/writing", label: "Writing" },
@@ -56,6 +56,7 @@ export function Nav() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
+            aria-controls="mobile-nav-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill border border-hairline bg-white-pill text-ink shadow-[var(--shadow-pill)] md:hidden"
           >
@@ -67,25 +68,26 @@ export function Nav() {
         </div>
       </nav>
 
-      {open && (
-        <div className="border-t border-hairline bg-canvas md:hidden">
-          <ul className="mx-auto flex w-full max-w-6xl flex-col px-4 py-2 sm:px-6">
-            {links.map(({ href, label }) => (
-              <li key={href} className="border-b border-hairline last:border-b-0">
-                <Link
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className={`block py-3 font-body text-base ${
-                    isActive(href) ? "font-medium text-ink" : "text-body"
-                  }`}
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div
+        id="mobile-nav-menu"
+        className={`border-t border-hairline bg-canvas md:hidden ${open ? "block" : "hidden"}`}
+      >
+        <ul className="mx-auto flex w-full max-w-6xl flex-col px-4 py-2 sm:px-6">
+          {links.map(({ href, label }) => (
+            <li key={href} className="border-b border-hairline last:border-b-0">
+              <Link
+                href={href}
+                onClick={() => setOpen(false)}
+                className={`block py-3 font-body text-base ${
+                  isActive(href) ? "font-medium text-ink" : "text-body"
+                }`}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 }
