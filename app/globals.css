@@ -1,43 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  --color-canvas: #faf9f7;
-  --color-mist-1: #e7e9ea;
-  --color-mist-2: #f3f1ec;
-  --color-mist-3: #dce0de;
-  --color-ink: #131315;
+  --color-canvas: #f7f6f3;
+  --color-ink: #111111;
+  --color-ink-deep: #0e0e0d;
   --color-ink-soft: #1b1b1e;
-  --color-body: #1a1a1a;
-  --color-muted: #444444;
+  --color-body: #111111;
+  --color-muted: #6b6a65;
+  --color-muted-dark: #8e8d87;
   --color-inverse: #f7f6f3;
-  --color-hairline: rgba(19, 19, 21, 0.1);
-  --color-hairline-inverse: rgba(247, 246, 243, 0.14);
-  --color-accent: #33c17a;
-  --color-tag-bg: #efeee9;
+  --color-hairline: #d8d6d0;
+  --color-hairline-inverse: #2c2c29;
+  --color-accent: #22a45d;
+  --color-tag-bg: #eeede8;
   --color-white-pill: #ffffff;
-
-  --shadow-pill: 0 1px 2px rgba(19, 19, 21, 0.06);
-  --shadow-card: 0 24px 48px -28px rgba(19, 19, 21, 0.35), 0 2px 6px rgba(19, 19, 21, 0.06);
-  --shadow-hover: 0 16px 32px -16px rgba(19, 19, 21, 0.28);
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast: 150ms;
   --dur-base: 450ms;
   --dur-slow: 600ms;
 
-  --space-section-y: clamp(4rem, 9vw, 7.5rem);
+  --space-section-y: clamp(4.75rem, 10vw, 9.375rem);
   --space-section-y-sm: clamp(2.5rem, 6vw, 4rem);
+  --space-gutter: clamp(1.25rem, 5vw, 3.75rem);
 }
 
 @theme inline {
   --color-canvas: var(--color-canvas);
-  --color-mist-1: var(--color-mist-1);
-  --color-mist-2: var(--color-mist-2);
-  --color-mist-3: var(--color-mist-3);
   --color-ink: var(--color-ink);
+  --color-ink-deep: var(--color-ink-deep);
   --color-ink-soft: var(--color-ink-soft);
   --color-body: var(--color-body);
   --color-muted: var(--color-muted);
+  --color-muted-dark: var(--color-muted-dark);
   --color-inverse: var(--color-inverse);
   --color-hairline: var(--color-hairline);
   --color-hairline-inverse: var(--color-hairline-inverse);
@@ -45,8 +40,9 @@
   --color-tag-bg: var(--color-tag-bg);
   --color-white-pill: var(--color-white-pill);
 
-  --font-display: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   --text-2xs: 0.6875rem;
   --text-xs: 0.75rem;
@@ -55,17 +51,12 @@
   --text-md: 1.0625rem;
   --text-lg: 1.25rem;
   --text-xl: 1.75rem;
-  --text-header: clamp(2.25rem, 6vw, 3.75rem);
-  --text-ghost: clamp(4.5rem, 16vw, 13rem);
+  --text-header: clamp(1.625rem, 4.6vw, 3.375rem);
   --text-hero: clamp(3rem, 12.5vw, 10.5rem);
 
   --radius-pill: 999px;
-  --radius-card: 20px;
-  --radius-card-sm: 14px;
-
-  --shadow-pill: var(--shadow-pill);
-  --shadow-card: var(--shadow-card);
-  --shadow-hover: var(--shadow-hover);
+  --radius-card: 0px;
+  --radius-card-sm: 0px;
 }
 
 * {
@@ -94,13 +85,11 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid currentColor;
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
-/* Outline/solid type system — the page's signature device. Reused at full
-   scale in the hero and at low opacity behind every /SECTION header. */
+/* Outline/solid type system — the page's signature device. */
 .stroke-text {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--color-ink);
@@ -114,42 +103,18 @@ body {
 /* paint-order: stroke fill draws the stroke first, then an opaque fill on
    top — the fill covers the inner half of the stroke (which otherwise
    bleeds into thin features like the A crossbar / R leg), leaving a clean
-   single outline. The fill color MUST match the exact background behind
-   the text, so this only works where that background is a flat color —
-   apply per-section, not as part of the shared base class above. */
+   single outline. The fill color MUST match the exact flat background
+   behind the text, so this is applied per-section via a modifier class,
+   not baked into the shared base class above. */
 .stroke-text-thick--on-solid {
   color: var(--color-canvas);
   paint-order: stroke fill;
 }
 
-/* Best-flat-match for the mist-bg gradient behind "SOMETHING REAL" — sampled
-   from the actual rendered pixels under the text (ranged ~#ececea at the
-   left edge to ~#e2e4e3 at the right, averaging to this value). Not a
-   pixel-perfect match everywhere since the true background is a gradient,
-   but the shift is subtle enough that the seam is not noticeable. */
-.stroke-text-thick--on-mist {
-  color: #e8e9e8;
+.stroke-text-thick--on-ink-deep {
+  color: var(--color-ink-deep);
+  -webkit-text-stroke-color: var(--color-canvas);
   paint-order: stroke fill;
-}
-
-.ghost-word {
-  position: absolute;
-  font-family: var(--font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--color-ink);
-  opacity: 0.06;
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.ghost-word--inverse {
-  -webkit-text-stroke-color: var(--color-inverse);
-  opacity: 0.1;
 }
 
 /* Scroll-in fade-up, staggered via inline --delay custom property */
@@ -177,41 +142,12 @@ body {
   }
 }
 
-/* Accordion smooth-height trick */
-.accordion-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows var(--dur-slow) var(--ease-out);
-}
-
-.accordion-panel[data-open="true"] {
-  grid-template-rows: 1fr;
-}
-
-.accordion-panel > div {
-  overflow: hidden;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .accordion-panel {
-    transition: none;
-  }
-}
-
-/* Lift on hover — buttons and cards */
+/* Lift on hover — buttons */
 @media (prefers-reduced-motion: no-preference) {
   .lift {
-    transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+    transition: transform var(--dur-fast) var(--ease-out);
   }
   .lift:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
-}
-
-.mist-bg {
-  background:
-    radial-gradient(120% 90% at 15% 10%, var(--color-mist-2) 0%, transparent 60%),
-    radial-gradient(100% 80% at 85% 20%, var(--color-mist-3) 0%, transparent 55%),
-    radial-gradient(140% 100% at 50% 100%, var(--color-mist-1) 0%, transparent 65%),
-    var(--color-mist-1);
 }
