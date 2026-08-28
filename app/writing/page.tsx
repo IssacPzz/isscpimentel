@@ -13,11 +13,9 @@ export default async function WritingPage() {
   const substackPosts = await getSubstackPosts();
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight mb-2 text-ink">Writing</h1>
-      <p className="text-body mb-6">
-        Essays, notes, and observations.
-      </p>
+    <div className="mx-auto w-full max-w-[1200px] px-[var(--space-gutter)] py-16">
+      <h1 className="text-3xl font-black uppercase tracking-[-0.02em] text-ink">Writing</h1>
+      <p className="mb-6 mt-2 text-body">Essays, notes, and observations.</p>
 
       <PillButton href={`${SUBSTACK_URL}/subscribe`} external size="sm" className="mb-12">
         Subscribe on Substack
@@ -25,62 +23,71 @@ export default async function WritingPage() {
 
       {substackPosts.length > 0 && (
         <>
-          <div className="space-y-5">
+          <div className="border-t border-hairline">
             {substackPosts.map((post) => (
-              <article
+              <a
                 key={post.link}
-                className="lift rounded-card border border-hairline bg-white p-6 shadow-[var(--shadow-card)] sm:p-7"
+                href={post.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid grid-cols-[minmax(7rem,9rem)_1fr] items-start gap-4 border-b border-hairline px-1 py-5 no-underline transition-colors hover:bg-tag-bg sm:gap-9"
               >
-                {post.date && <time className="text-xs text-muted">{post.date}</time>}
-                <h2 className="mt-1 font-display text-lg font-bold tracking-[-0.01em] text-ink">
-                  {post.title}
-                </h2>
-                {post.excerpt && (
-                  <p className="mt-2 text-sm leading-[1.6] text-body">{post.excerpt}</p>
+                {post.date ? (
+                  <time className="pt-[0.3em] font-mono text-[10.5px] uppercase tracking-[0.17em] text-muted">
+                    {post.date}
+                  </time>
+                ) : (
+                  <span />
                 )}
-                <PillButton href={post.link} external size="sm" variant="light" className="mt-4">
-                  Read on Substack
-                </PillButton>
-              </article>
+                <span>
+                  <span className="text-[clamp(1.125rem,2vw,1.375rem)] font-semibold leading-[1.16] tracking-[-0.02em] text-ink">
+                    {post.title}
+                    <i className="ml-[0.45em] align-[0.55em] font-mono text-[0.4em] not-italic text-muted">↗</i>
+                  </span>
+                  {post.excerpt && (
+                    <span className="mt-[0.45em] block max-w-[54ch] text-[15px] text-muted">{post.excerpt}</span>
+                  )}
+                </span>
+              </a>
             ))}
           </div>
-
-          {posts.length > 0 && <hr className="my-12 border-hairline" />}
+          {posts.length > 0 && <div className="h-12" />}
         </>
       )}
 
       {posts.length === 0 ? (
         <p className="text-body">Nothing here yet.</p>
       ) : (
-        <ul className="space-y-10">
+        <div className="border-t border-hairline">
           {posts.map((post) => (
-            <li key={post.slug}>
-              <Link href={`/writing/${post.slug}`} className="group block">
-                <time className="text-xs text-muted">{post.date}</time>
-                <h2 className="text-lg font-semibold mt-1 text-ink group-hover:underline underline-offset-4">
+            <Link
+              key={post.slug}
+              href={`/writing/${post.slug}`}
+              className="grid grid-cols-[minmax(7rem,9rem)_1fr] items-start gap-4 border-b border-hairline px-1 py-5 no-underline transition-colors hover:bg-tag-bg sm:gap-9"
+            >
+              <time className="pt-[0.3em] font-mono text-[10.5px] uppercase tracking-[0.17em] text-muted">
+                {post.date}
+              </time>
+              <span>
+                <span className="text-[clamp(1.125rem,2vw,1.375rem)] font-semibold leading-[1.16] tracking-[-0.02em] text-ink">
                   {post.title}
-                </h2>
+                </span>
                 {post.excerpt && (
-                  <p className="text-body mt-1 text-sm">
-                    {post.excerpt}
-                  </p>
+                  <span className="mt-[0.45em] block max-w-[54ch] text-[15px] text-muted">{post.excerpt}</span>
                 )}
                 {post.tags && post.tags.length > 0 && (
-                  <div className="flex gap-2 mt-2">
+                  <span className="mt-2 flex gap-2">
                     {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs px-2 py-0.5 rounded-pill bg-tag-bg text-body"
-                      >
+                      <span key={tag} className="rounded-pill bg-tag-bg px-2.5 py-0.5 text-[11px] text-muted">
                         {tag}
                       </span>
                     ))}
-                  </div>
+                  </span>
                 )}
-              </Link>
-            </li>
+              </span>
+            </Link>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

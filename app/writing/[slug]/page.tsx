@@ -38,7 +38,7 @@ export default async function WritingPostPage({ params }: Props) {
   const components = useMDXComponents({});
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-12">
+    <div className="mx-auto w-full max-w-3xl px-[var(--space-gutter)] py-16">
     <article>
       <Link
         href="/writing"
@@ -48,8 +48,8 @@ export default async function WritingPostPage({ params }: Props) {
       </Link>
 
       <header className="mb-8">
-        <time className="text-sm text-muted">{post.date}</time>
-        <h1 className="text-3xl font-bold tracking-tight mt-2 text-ink">{post.title}</h1>
+        <time className="font-mono text-xs uppercase tracking-[0.17em] text-muted">{post.date}</time>
+        <h1 className="mt-2 text-3xl font-black uppercase tracking-[-0.02em] text-ink">{post.title}</h1>
         {post.excerpt && (
           <p className="text-body mt-2">{post.excerpt}</p>
         )}

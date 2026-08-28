@@ -8,10 +8,9 @@ import { MenuIcon, CloseIcon } from "./icons";
 
 const links = [
   { href: "/#selected-work", label: "Work" },
-  { href: "/#interests", label: "Interests" },
-  { href: "/photography", label: "Photography" },
-  { href: "/writing", label: "Writing" },
-  { href: "/about", label: "About" },
+  { href: "/#photography", label: "Photography" },
+  { href: "/#about", label: "About" },
+  { href: "/#writing", label: "Writing" },
 ];
 
 export function Nav() {
@@ -22,27 +21,27 @@ export function Nav() {
     href.startsWith("/#") ? false : pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-md">
-      <nav className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+    <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/90 backdrop-blur-md">
+      <nav className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-[var(--space-gutter)] py-3.5">
         <Link
           href="/"
-          className="flex items-center gap-2 rounded-pill border border-hairline bg-white-pill px-3.5 py-2 text-xs font-medium text-ink shadow-[var(--shadow-pill)] sm:px-4 sm:text-sm"
+          className="flex items-center gap-2 rounded-pill border border-hairline bg-white-pill px-3.5 py-1.5 text-xs font-medium text-ink sm:px-4 sm:text-sm"
         >
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-[7px] w-[7px]">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            <span className="relative inline-flex h-[7px] w-[7px] rounded-full bg-accent" />
           </span>
           <span className="hidden sm:inline">Available for freelance work</span>
           <span className="sm:hidden">Available</span>
         </Link>
 
-        <ul className="hidden items-center gap-6 md:flex">
+        <ul className="hidden items-center gap-[clamp(0.875rem,2.2vw,1.75rem)] text-[15px] md:flex">
           {links.map(({ href, label }) => (
             <li key={href}>
               <Link
                 href={href}
-                className={`font-body text-sm transition-colors ${
-                  isActive(href) ? "font-medium text-ink" : "text-body hover:text-ink"
+                className={`font-body transition-colors ${
+                  isActive(href) ? "font-medium text-ink" : "text-muted hover:text-ink"
                 }`}
               >
                 {label}
@@ -58,7 +57,7 @@ export function Nav() {
             aria-expanded={open}
             aria-controls="mobile-nav-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill border border-hairline bg-white-pill text-ink shadow-[var(--shadow-pill)] md:hidden"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill border border-hairline bg-white-pill text-ink md:hidden"
           >
             {open ? <CloseIcon className="h-4 w-4" /> : <MenuIcon className="h-4 w-4" />}
           </button>
@@ -72,14 +71,14 @@ export function Nav() {
         id="mobile-nav-menu"
         className={`border-t border-hairline bg-canvas md:hidden ${open ? "block" : "hidden"}`}
       >
-        <ul className="mx-auto flex w-full max-w-6xl flex-col px-4 py-2 sm:px-6">
+        <ul className="mx-auto flex w-full max-w-[1200px] flex-col px-[var(--space-gutter)] py-1.5">
           {links.map(({ href, label }) => (
             <li key={href} className="border-b border-hairline last:border-b-0">
               <Link
                 href={href}
                 onClick={() => setOpen(false)}
-                className={`block py-3 font-body text-base ${
-                  isActive(href) ? "font-medium text-ink" : "text-body"
+                className={`block py-3 text-[17px] font-body ${
+                  isActive(href) ? "font-medium text-ink" : "text-muted"
                 }`}
               >
                 {label}

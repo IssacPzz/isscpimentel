@@ -15,7 +15,7 @@ export default function AboutPage() {
   const components = useMDXComponents({});
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-12">
+    <div className="mx-auto w-full max-w-3xl px-[var(--space-gutter)] py-16">
       <article>
         <MDXRemote
           source={content}

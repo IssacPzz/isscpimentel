@@ -1,39 +1,33 @@
 export interface Project {
-  name: string;
-  url?: string;
-  description: string;
-  tags: string[];
-  category: "client" | "personal";
+  role: string;
+  title: string;
+  note: string;
+  href: string;
 }
 
 export const projects: Project[] = [
   {
-    name: "ShelfDrop",
-    url: "shelfdrop.live",
-    description:
-      "Retail clearance aggregator. Next.js on Vercel, custom domain, 7 retailer pages, zip-code store locator, email capture.",
-    tags: ["Next.js", "Live Site"],
-    category: "client",
+    role: "Live · 2026",
+    title: "ShelfDrop",
+    note: "Clearance deals across seven retailers, plus a zip-code lookup that tells you whether the thing is actually on a shelf near you.",
+    href: "https://shelfdrop.live",
   },
   {
-    name: "The Hub",
-    description:
-      "Self-contained personal command center. Habit tracking, goals, financial view, Kanban pipeline, weekly review, and an advisory panel modeled on people I learn from. Runs entirely local.",
-    tags: ["HTML", "Personal Tool"],
-    category: "personal",
+    role: "Running locally",
+    title: "The Hub",
+    note: "One HTML file holding my habits, goals, money, and weekly review. No account, no server. It opens instantly because it never leaves the machine.",
+    href: "#",
   },
   {
-    name: "Backroad Relics",
-    description:
-      "Vintage automotive print-on-demand store. Full DNS and email auth setup, Printify integration, 50-design production plan. Got an IP notice from Volkswagen and pivoted to generic silhouettes — an education in trademark law I didn't expect.",
-    tags: ["Shopify", "Design"],
-    category: "personal",
+    role: "Closed · Learned",
+    title: "Backroad Relics",
+    note: "Vintage car prints. A trademark notice from Volkswagen arrived four weeks in. I redrew every silhouette generic and learned more IP law than a class would have taught me.",
+    href: "#",
   },
   {
-    name: "FinalBellCo",
-    description:
-      "Combat sports apparel on Etsy. Five design templates, a full tag and title system, paid ad testing. Reached first sales, then read the data honestly and paused it.",
-    tags: ["Etsy", "Print on Demand"],
-    category: "personal",
+    role: "Closed · Learned",
+    title: "FinalBellCo",
+    note: "Combat sports apparel on Etsy. Real sales, real ad spend, then an honest look at the numbers and a decision to stop.",
+    href: "#",
   },
 ];

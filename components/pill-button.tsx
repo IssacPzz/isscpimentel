@@ -17,7 +17,7 @@ export function PillButton({
   children,
   variant = "dark",
   size = "md",
-  arrow = true,
+  arrow = false,
   className = "",
   external = false,
 }: PillButtonProps) {
@@ -25,8 +25,8 @@ export function PillButton({
   const sizing = size === "md" ? "px-6 py-3 text-sm" : "px-4 py-2.5 text-xs sm:px-5 sm:py-2.5 sm:text-sm";
   const styles =
     variant === "dark"
-      ? "bg-ink text-inverse hover:shadow-[var(--shadow-hover)]"
-      : "bg-white-pill text-ink shadow-[var(--shadow-pill)] hover:shadow-[var(--shadow-hover)]";
+      ? "bg-ink text-inverse"
+      : "border border-hairline bg-white-pill text-ink";
 
   return (
     <Link

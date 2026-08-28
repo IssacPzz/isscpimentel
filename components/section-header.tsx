@@ -1,37 +1,23 @@
 interface SectionHeaderProps {
   label: string;
-  ghost: string;
+  sub?: string;
   inverse?: boolean;
-  misty?: boolean;
-  align?: "left" | "center";
 }
 
-export function SectionHeader({
-  label,
-  ghost,
-  inverse = false,
-  misty = false,
-  align = "left",
-}: SectionHeaderProps) {
+export function SectionHeader({ label, sub, inverse = false }: SectionHeaderProps) {
   return (
-    <div className={`relative ${align === "center" ? "text-center" : ""}`}>
-      <span
-        aria-hidden="true"
-        className={`ghost-word ${inverse ? "ghost-word--inverse" : ""} ${
-          align === "center" ? "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" : "-top-4 -left-1 sm:-top-6"
-        }`}
-        style={{ fontSize: "var(--text-ghost)", opacity: misty && !inverse ? 0.1 : undefined }}
-      >
-        {ghost}
-      </span>
+    <div className="mb-[clamp(1.875rem,4.4vw,3.25rem)]">
       <h2
-        className={`relative font-display text-header font-extrabold uppercase leading-none tracking-[-0.03em] ${
+        className={`font-display text-header font-black uppercase leading-none tracking-[-0.028em] ${
           inverse ? "text-inverse" : "text-ink"
         }`}
       >
-        <span className="mr-1 opacity-40">/</span>
+        <span className={inverse ? "font-normal text-muted-dark" : "font-normal text-muted"}>/</span>
         {label}
       </h2>
+      {sub && (
+        <p className={`mt-2.5 max-w-[46ch] text-base ${inverse ? "text-muted-dark" : "text-muted"}`}>{sub}</p>
+      )}
     </div>
   );
 }
